@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>User Register</title>
+{% endblock %}
+
+{% block content %}
+<main>
+    <section>
+        <article>
+            <form action="/user_register_handler" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                <label for="username">Username</label>
+                <input type="text" name="username" placeholder="username" id="username">
+                <label for="password">Enter Password</label>
+                <input type="password" name="password" placeholder="password" id="password">
+                <label for="repassword">Confirm Password</label>
+                <input type="password" name="repassword" placeholder="Confirm Password" id="repassword">
+
+                <button type="submit" name="submit_register" id="register_button">Register</button>
+            </form>
+        </article>
+    </section>
+</main>
+{% endblock %}

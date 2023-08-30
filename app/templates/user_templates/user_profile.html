@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>{{ username }} Profile</title>
+{% endblock %}
+
+{% block content %}
+<main>
+    <section>
+        <article>
+            <h1>Hello {{ username }}, welcome to your profile</h1>
+        </article>
+
+        <article>
+            <a href="/logout">Logout</a>
+        </article>
+    </section>
+</main>
+{% endblock %}

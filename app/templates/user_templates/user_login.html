@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>User Login</title>
+{% endblock %}
+
+{% block content %}
+<main>
+    <section>
+        <article>
+            <form action="/user_login_handler" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                <label for="username">Username</label>
+                <input type="text" name="username" placeholder="username" id="username">
+                <label for="password">Password</label>
+                <input type="password" name="password" placeholder="password" id="password">
+
+                <input type="submit" name="login_creds" id="login_submit" value="Login">
+            </form>
+        </article>
+    </section>
+</main>
+{% endblock %}
