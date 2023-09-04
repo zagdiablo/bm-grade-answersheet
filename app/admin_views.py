@@ -13,7 +13,12 @@ from .models import User
 
 admin_views = Blueprint("admin_views", __name__)
 
-
+#
+#
+#
+#
+# admin dashboard 
+#
 @admin_views.route("/admin_dashboard", methods=["GET"])
 @login_required
 def admin_dashboard():
@@ -26,6 +31,21 @@ def admin_dashboard():
     # check if user is admin
     user = User.query.get(current_user.get_id())
     if not user.role == "admin":
-        return redirect(url_for("user_views.user_profile"))
+        return redirect(url_for("admin_auth.admin_login"))
 
     return render_template("admin_templates/admin_dashboard.html")
+
+#
+#
+#
+#
+# admin manage account
+#
+@admin_views.route("/admin_manage_account", methods=['GET'])
+@login_required
+def admin_manage_account():
+    """
+    render admin account manager page
+    """
+
+    return render_template('admin_templates/admin_manage_account.html')

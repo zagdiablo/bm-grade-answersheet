@@ -24,19 +24,13 @@ admin_auth = Blueprint("admin_auth", __name__)
 #
 # TODO test admin login
 #
-@admin_auth.route("/admin_login", methods=["GET"])
+@admin_auth.route("/", methods=["GET"])
 def admin_login():
     """
     display admin login page
-    when /admin_login url is requested using GET method
-    and not loged in into any other user or admin account
 
     return render admin_login.html
     """
-
-    # check if user is loged in
-    if current_user.get_id():
-        return redirect(url_for("user_views.user_profile"))
 
     return render_template("admin_templates/admin_login.html")
 
@@ -44,7 +38,7 @@ def admin_login():
 #
 # admin login handler
 @admin_auth.route("/admin_login_handler", methods=["POST"])
-def admin_login_hander():
+def admin_login_handler():
     """
     handle admin login form post request
     accept username and password from admin_login.html
@@ -67,7 +61,7 @@ def admin_login_hander():
     if to_check_username:
         if not to_check_username.role == "admin":
             flash("Username or password is wrong.", category="error")
-            return redirect("/admin_login")
+            return redirect("/")
 
         if check_password_hash(to_check_username.password, password):
             login_user(to_check_username)
@@ -77,7 +71,7 @@ def admin_login_hander():
         f"Something is wrong, if this continues, contact your site administrator.",
         category="error",
     )
-    return redirect("/admin_login")
+    return redirect("/")
 
 
 #
@@ -86,4 +80,4 @@ def admin_login_hander():
 @login_required
 def admin_logout():
     logout_user()
-    return redirect(url_for("user_views.home"))
+    return redirect("/")

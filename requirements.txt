@@ -1,0 +1,7 @@
+Flask==2.3.3
+flask_admin==1.6.1
+flask_login==0.6.2
+flask_sqlalchemy==3.0.5
+flask_wtf==1.1.1
+user_auth==0.1.0
+Werkzeug==2.3.7

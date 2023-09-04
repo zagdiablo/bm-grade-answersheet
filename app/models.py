@@ -16,27 +16,40 @@ class User(db.Model, UserMixin):
     role = db.Column(db.String(50), nullable=False, default="user")
 
 
-class Soal(db.Model):
+class Folder(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    nama_soal = db.Column(db.String(300), nullable=False, default="Untitled soal")
+    folder_name = db.Column(db.String(50), nullable=False, default='Untitled Folder')
+    date_created = db.Column(db.String(50), nullable=False, default='Empty')
+    quiz = db.relationship("Quiz", backref='Folder')
+
+
+class Quiz(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    quiz_name = db.Column(db.String(300), nullable=False, default="Untitled soal")
+    number_of_questions = db.Column(db.Integer, nullable=False, default=1)
+    number_of_answers = db.Column(db.Integer, nullable=False, default=4)
+    work_timer = db.Column(db.Integer, nullable=False, default=10)
     link_id = db.Column(db.String(300), nullable=False)
     qr_code_img = db.Column(db.String(300), nullable=False)
-    jawaban = db.relationship("Jawaban", backref="soal", lazy="default")
-    history_pengerjaan = db.relationship(
-        "HistoryPengerjaan", backref="Soal", lazy="default"
-    )
+    answer = db.relationship("Question", backref="quiz")
+    played_by_history = db.relationship("StudentWorkHistory", backref="Quiz")
+    folder = db.Column(db.Integer, db.ForeignKey('folder.id'))
 
 
-class Jawaban(db.Model):
+class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    nomor = db.Column(db.String(20), nullable=False)
-    jawaban = db.Column(db.String(5), nullable=False)
-    soal_id = db.Column(db.Integer, db.ForeignKey("soal.id"))
+    number = db.Column(db.String(20), nullable=False)
+    answer = db.Column(db.String(5), nullable=False)
+    answer_weight = db.Column(db.Integer, nullable=False, default=1)
+    quiz_id = db.Column(db.Integer, db.ForeignKey("quiz.id"))
 
 
-class HistoryPengerjaan(db.Model):
+class StudentWorkHistory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    nama_peserta = db.Column(db.String(300), nullable=False, default="No Name")
-    tanggal = db.Column(db.String(300), nullable=False)
-    jawaban = db.Column(db.String(300), nullable=False)
-    soal_id = db.Column(db.Integer, db.ForeignKey("soal.id"))
+    student_name = db.Column(db.String(300), nullable=False, default="No Name")
+    played_date = db.Column(db.String(300), nullable=False)
+    student_answer = db.Column(db.String(300), nullable=False)
+    correct_answer = db.Column(db.Integer, nullable=False, default=0)
+    wrong_answer = db.Column(db.Integer, nullable=False, default=0)
+    work_time = db.Column(db.String(100), nullable=False, default='NaN')
+    quiz_id = db.Column(db.Integer, db.ForeignKey("quiz.id"))

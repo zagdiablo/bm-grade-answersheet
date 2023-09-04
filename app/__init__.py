@@ -10,7 +10,7 @@ import os
 
 
 app = Flask(__name__)
-db = SQLAlchemy(app)
+db = SQLAlchemy()
 
 
 #
@@ -19,24 +19,19 @@ db = SQLAlchemy(app)
 #
 # create flask aplication instance
 #
-def create_app(config_name="DevelopmentConfig"):
+def create_app():
     """
     create an app instance of flask to run a web application
 
     config_name = the name of a config object inside config.py
     """
-
-    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///database.db"
+    # Config file
     app.config.from_object(config.DevelopmentConfig)
 
     # Blueprints
-    from .user_auth import user_auth
-    from .user_views import user_views
     from .admin_auth import admin_auth
     from .admin_views import admin_views
 
-    app.register_blueprint(user_auth, url_prefix="/")
-    app.register_blueprint(user_views, url_prefix="/")
     app.register_blueprint(admin_auth, url_prefix="/")
     app.register_blueprint(admin_views, url_prefix="/")
 
@@ -60,12 +55,12 @@ def create_app(config_name="DevelopmentConfig"):
     csrf = CSRFProtect(app)
 
     # database configuration
-    db.init_app(app)
     if not check_database():
-        db.create_all()
-
-    # admin account generation
-    generate_admin_account()
+        with app.app_context():
+            db.init_app(app)
+            db.create_all()
+            # admin account generation
+            generate_admin_account()
 
     return app
 
