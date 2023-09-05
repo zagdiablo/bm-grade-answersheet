@@ -16,13 +16,6 @@ class User(db.Model, UserMixin):
     role = db.Column(db.String(50), nullable=False, default="user")
 
 
-class Folder(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    folder_name = db.Column(db.String(50), nullable=False, default='Untitled Folder')
-    date_created = db.Column(db.String(50), nullable=False, default='Empty')
-    quiz = db.relationship("Quiz", backref='Folder')
-
-
 class Quiz(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     quiz_name = db.Column(db.String(300), nullable=False, default="Untitled soal")
@@ -33,7 +26,6 @@ class Quiz(db.Model):
     qr_code_img = db.Column(db.String(300), nullable=False)
     answer = db.relationship("Question", backref="quiz")
     played_by_history = db.relationship("StudentWorkHistory", backref="Quiz")
-    folder = db.Column(db.Integer, db.ForeignKey('folder.id'))
 
 
 class Question(db.Model):
@@ -51,5 +43,5 @@ class StudentWorkHistory(db.Model):
     student_answer = db.Column(db.String(300), nullable=False)
     correct_answer = db.Column(db.Integer, nullable=False, default=0)
     wrong_answer = db.Column(db.Integer, nullable=False, default=0)
-    work_time = db.Column(db.String(100), nullable=False, default='NaN')
+    work_time = db.Column(db.String(100), nullable=False, default="NaN")
     quiz_id = db.Column(db.Integer, db.ForeignKey("quiz.id"))

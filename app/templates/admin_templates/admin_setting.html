@@ -1,0 +1,118 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+<title>BM Grade - Admin Setting</title>
+{% endblock %}
+
+{% block main_content %}
+<div id="main-content">
+    <div class="page-heading">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-12 col-md-6 order-md-1 order-last">
+                    <h3>Setting Akun</h3>
+                    <p class="text-subtitle text-muted">Ganti password akun.</p>
+                </div>
+                <div class="col-12 col-md-6 order-md-2 order-first">
+                    <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/admin_dashboard">Dashboard</a></li>
+                            <li class="breadcrumb-item active"><a href="/admin_setting">Setting</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <section class="section">
+            <div class="card">
+                <!-- Basic Horizontal form layout section start -->
+                <section id="basic-horizontal-layouts">
+                    <div class="row match-height">
+                        <div class="col-md-6 col-12">
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="card-body">
+
+                                        <!-- flash message display logic -->
+                                        {% with messages = get_flashed_messages(with_categories=true) %} {% if
+                                        messages %} {% for category, message in messages %} {% if category ==
+                                        'error' %}
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            {{ message }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        {% elif category == 'warning' %}
+                                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                            {{ message }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        {% else %}
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            {{ message }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        {% endif %} {% endfor %} {% endif %} {% endwith %}
+                                        <!-- flash message display logic end -->
+
+                                        <!-- seting akun -->
+                                        <form action="/handle_admin_setting" method="post" class="form form-horizontal">
+                                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                                            <div class="form-body">
+                                                <div class="row">
+
+                                                    <div class="col-md-4">
+                                                        <label>Password</label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group">
+                                                        <input type="password" id="password" class="form-control"
+                                                            name="password" placeholder="Password" required>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <label>Confirm Password</label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group">
+                                                        <input type="password" id="repassword" class="form-control"
+                                                            name="repassword" placeholder="Confirm Password" required>
+                                                    </div>
+
+                                                    <div class="col-sm-12 d-flex justify-content-end">
+                                                        <button type="submit"
+                                                            class="btn btn-primary me-1 mb-1">Submit</button>
+                                                        <button type="reset"
+                                                            class="btn btn-light-secondary me-1 mb-1">Reset</button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <!-- seting akun -->
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- // Basic Horizontal form layout section end -->
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer clearfix mb-0 text-muted">
+            <div class="float-start">
+                <p>2021 &copy; Mazer</p>
+            </div>
+            <div class="float-end">
+                <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
+                    by <a href="https://ahmadsaugi.com">Saugi</a></p>
+            </div>
+        </div>
+    </footer>
+</div>
+{% endblock %}

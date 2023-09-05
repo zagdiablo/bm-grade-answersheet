@@ -59,16 +59,12 @@ def admin_login_handler():
     to_check_username = User.query.filter_by(username=username).first()
 
     if to_check_username:
-        if not to_check_username.role == "admin":
-            flash("Username or password is wrong.", category="error")
-            return redirect("/")
-
         if check_password_hash(to_check_username.password, password):
             login_user(to_check_username)
             return redirect(url_for("admin_views.admin_dashboard"))
 
     flash(
-        f"Something is wrong, if this continues, contact your site administrator.",
+        f"Username or password is wrong.",
         category="error",
     )
     return redirect("/")
