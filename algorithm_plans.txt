@@ -1,0 +1,47 @@
+SIMPLE BASIC SYSTEM LOGIC:
+
+# = user input
+* = system process
+? = algorithm steps
+- = flowchart steps
+
+admin account:
+        - edit usrname and password                                                                                                          (User.Username, User.password)
+        - tambah soal
+                # input nama soal                                                                                                                       (Quiz.quiz_name)
+                # input jumlah jawaban per soal                                                                                            (Quiz.number_of_answers)
+                # input jumlah nomor soal                                                                                                       (Quiz.number_of_questions)
+                # input waktu pengerjaan (menit)                                                                                          (Quiz.work_timer)
+                * generate answer sheet input for soal                                                                                  (Question.id, Question.number, Question.quiz_id)
+                # input answer & answer weight by the admin user                                                          (Question.answer, Question.answer_weight)
+                # save soal by admin users        
+                * generate link for students to answer                                                                                   (Quiz.link_id)
+                * conver into QR                                                                                                                          (Quiz.qr_code_img)
+                * save it as a name coresponding to the quiz id and save it in the database
+
+        - optional steps:
+                - soal by folder capabilities                                                                                                        (Folder.id, Folder.folder_name, Folder.date_created, Folder.quiz)
+
+student:
+        - buka link quiz
+        * query jumlah soal, jumlah jawaban, timer
+        # student mengisi input username                                                                                                   (StudentWorkHistory.student_name, StudentWorkHistory.played_date)
+        # student menekan tombol "mulai"
+        ? start timer
+                * set timer in hidden html component
+                * make js function, get timer, start countdown in minutes
+                * if timer reach 0 send post to handle_quiz_finish (student submit hasil):
+                        - evaluate student performance   
+        * render display answer sheet
+        # student mengisi answersheet
+        # student submit hasil
+        ? buat loop, get hasil soal per nomor disimpan ke variable sementara:
+                * masukan ke dalam array jawaban student                                                                        
+                * masukan data ke database (jawaban, waktu dikerjakan)                                                 (StudentWorkHistory.student_answer, StudentWorkHistory.work_time)
+        ? buat loop, query semua jawaban soal, masukan ke variable sementara:
+                * masukan kedalam array jawaban asli
+        ? buat loop, komparasi jawaban asli & jawaban student:
+                * if correct betul += 1 else salah += 1
+        * simpan hasil ke database                                                                                                                 (StudentWorkHistory.correct_answer, StudentWorkHistory.wrong_anser)
+        # query nama quiz, nama student, correct answer, wrong answer, waktu pengerjaan
+        * render display hasil pengerjaan
