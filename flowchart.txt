@@ -1,0 +1,17 @@
+quiz page --> quiz setting --> answer for answersheet
+
+display quiz page:
+	- card 1:
+		- input nama quiz, tombol "buat quiz"
+
+	- card 2:
+		- table list quiz yang sudah ada, tombol edit, hapus, sheet
+			- nama quiz, tanggal buat
+
+jika klik tombol buat quiz:
+	- buat quiz baru page:
+	
+
+jumlah jawaban
+jumlah nomor soal
+waktu pengerjaan
