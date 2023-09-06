@@ -30,7 +30,9 @@
                 </div>
                 <div class="card-content">
                     <div class="card-body">
-                        <form class="form form-horizontal" action="" method="post">
+                        <form class="form form-horizontal" action="/admin_quiz_creator_handler" method="post">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
                             <div class="form-body">
                                 <div class="row">
 
@@ -59,11 +61,11 @@
                                     </div>
 
                                     <div class="col-md-4">
-                                        <label>Waktu Pengerjaan</label>
+                                        <label>Waktu Pengerjaan (menit)</label>
                                     </div>
                                     <div class="col-md-8 form-group">
                                         <input type="number" id="waktu_pengerjaan" class="form-control"
-                                            name="waktu_pengerjaan" placeholder="Waktu Pengerjaan">
+                                            name="waktu_pengerjaan" placeholder="Waktu Pengerjaan (menit)">
                                     </div>
 
                                     <div class="col-sm-12 d-flex justify-content-end">
@@ -74,6 +76,19 @@
                                 </div>
                             </div>
                         </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Daftar Quiz</h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        
                     </div>
                 </div>
             </div>

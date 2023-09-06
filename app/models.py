@@ -18,12 +18,13 @@ class User(db.Model, UserMixin):
 
 class Quiz(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    quiz_name = db.Column(db.String(300), nullable=False, default="Untitled soal")
+    quiz_name = db.Column(db.String(300), unique=True, nullable=False, default="Untitled soal")
     number_of_questions = db.Column(db.Integer, nullable=False, default=1)
     number_of_answers = db.Column(db.Integer, nullable=False, default=4)
     work_timer = db.Column(db.Integer, nullable=False, default=10)
-    link_id = db.Column(db.String(300), nullable=False)
-    qr_code_img = db.Column(db.String(300), nullable=False)
+    # below data is auto generated after quiz creation
+    link_id = db.Column(db.String(300), nullable=False, default='-')
+    qr_code_img = db.Column(db.String(300), nullable=False, default='-')
     answer = db.relationship("Question", backref="quiz")
     played_by_history = db.relationship("StudentWorkHistory", backref="Quiz")
 

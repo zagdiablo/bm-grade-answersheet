@@ -10,15 +10,12 @@ import os
 import pathlib
 
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-
-
 class Config:
     SECRET_KEY = "your-secret-key"
 
     # database location and connection config
     # edit as needed
-    SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(basedir)}/database.db"
+    SQLALCHEMY_DATABASE_URI = f"sqlite:///database.db"
 
     # upload folder directory config, "nt" if windows "posix" if linux, and others is as needed
     # edit as needed
